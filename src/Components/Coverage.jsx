@@ -6,16 +6,21 @@ import { useLoaderData } from 'react-router'
 const Coverage = () => {
     const position = [23.6850, 90.3563]
     const serviceCenters = useLoaderData()
-    console.log(serviceCenters)
   return (
-    <div className='bg-white h-235 mt-8 rounded-4xl pl-20 '>
+    <div className='bg-white h-310 mt-8 rounded-4xl pl-20 pt-20 mb-21'>
         <h1 className='text-secondary text-[56px] font-extrabold'>We are available in 64 districts</h1>
 
-        <div>
+    <div className='flex mt-10'>
+        <input type="text" placeholder="Search here" className="$$input 
+        bg-[#CBD5E1] w-140 h-12.5 rounded-4xl pl-4"/>
 
-        </div>
+        <button className='btn bg-primary h-12.5 rounded-4xl w-32 font-bold relative right-32'>Search</button>
+    </div>
 
-        <div className='border w-full h-175'>
+        <div className='w-full h-175 mt-12'>
+
+            <h1 className='font-extrabold text-[30px] text-secondary mt-20 mb-20'>We deliver almost all over Bangladesh</h1>
+
             <MapContainer center={position} zoom={8} scrollWheelZoom={false} className='h-175' >
                 <TileLayer
                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
