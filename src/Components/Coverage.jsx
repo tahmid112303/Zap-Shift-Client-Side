@@ -16,7 +16,7 @@ const Coverage = () => {
         if(district){
             const coOrdinate = [district.latitude,district.longitude]
             console.log(district,coOrdinate)
-            mapRef.current.flyTo(coOrdinate, 14)
+            mapRef.current.flyTo(coOrdinate, 12)
         }else{
             alert("Could not find anything")
         }
@@ -50,9 +50,7 @@ const Coverage = () => {
                         Service Area: {center.covered_area.join(', ')}
                     </Popup>
                 </Marker>)
-                }
-
-                
+                }               
             </MapContainer>
         </div>
     </div>
