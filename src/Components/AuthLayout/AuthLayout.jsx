@@ -6,7 +6,7 @@ import authLogo from '../../../assets/logos/authImage.png'
 const AuthLayout = () => {
   return (
     <div className='max-w-7xl mx-auto bg-white min-h-screen'>
-        <div>
+        <div className='ml-13.75 pt-11'>
           <LOGO></LOGO>
         </div>
 
