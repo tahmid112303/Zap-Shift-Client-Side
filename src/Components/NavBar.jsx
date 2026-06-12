@@ -1,8 +1,12 @@
 import React from 'react'
 import webLogo from '../../assets/brands/logo.png'
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
+import useAuth from '../Hooks/useAuth'
 
 const NavBar = () => {
+
+    const navigate = useNavigate()
+    const {logOut,user} = useAuth()
 
     const links = <>
         <NavLink to={'/'}>Home</NavLink>
@@ -12,6 +16,16 @@ const NavBar = () => {
         <NavLink>Pricing</NavLink>
         <NavLink>Be a Rider</NavLink>
     </>
+
+    function handleLogOut(){
+      logOut()
+      .then(()=>{
+        console.log("Signed Out")
+      }).catch(error=>{
+        console.log(error)
+      })
+      navigate('/login')
+    }
 
   return (
 <div className="navbar bg-base-100 shadow-sm mt-8 rounded-2xl">
@@ -37,7 +51,13 @@ const NavBar = () => {
         {links}
     </ul>
   </div>
-  <div className="navbar-end">
+  <div className="navbar-end gap-4">
+
+
+      {user ? <a onClick={handleLogOut} className="btn text-black rounded-[10px]">
+      Sign Out</a> : <a onClick={()=>navigate('/login')} className="btn text-black rounded-[10px]">
+      Sign In</a>}
+
     <a className="btn bg-primary text-black rounded-[10px]">
       Be a rider</a>
   </div>
