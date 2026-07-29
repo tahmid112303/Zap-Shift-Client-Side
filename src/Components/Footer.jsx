@@ -23,7 +23,7 @@ const Footer = () => {
   }
 
   return (
-<footer className="$$footer $$footer-horizontal $$footer-center bg-neutral text-primary-content p-10 rounded-4xl h-115 flex flex-col items-center pt-20 mt-25">
+<footer className="$$footer $$footer-horizontal $$footer-center bg-neutral text-primary-content p-10 rounded-4xl h-115 flex flex-col items-center pt-20 mt-25 max-sm:h-auto">
   <aside className='flex flex-col items-center gap-5'>
        <div className='flex'>
             <img src={webLogo} alt="" />
@@ -36,12 +36,12 @@ const Footer = () => {
     </p>
   </aside>
 
-    <div className='flex gap-6 mt-8 mb-8'>
+    <div className='flex gap-6 mt-8 mb-8 max-sm:flex-col max-sm:gap-8'>
         <NavLink>Services</NavLink>
         <NavLink to={'/coverage'}>Coverage</NavLink>
         <NavLink to={'/about'}>About Us</NavLink>
         <NavLink>Pricing</NavLink>
-        <NavLink>Be a Rider</NavLink>
+        <NavLink to={'/rider'}>Be a Rider</NavLink>
     </div>
 
 

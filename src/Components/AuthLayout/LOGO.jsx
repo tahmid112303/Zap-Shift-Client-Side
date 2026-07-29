@@ -1,12 +1,15 @@
 import React from 'react'
 import webLogo from '../../../assets/brands/logo.png'
+import { useNavigate } from 'react-router'
 
 const LOGO = () => {
+  const navigate = useNavigate()
+
   return (
           <div className='flex items-end'>
-              <img src={webLogo} alt="logo" />
+              <img onClick={()=>navigate('/')}  className='cursor-pointer' src={webLogo} alt="logo" />
     
-              <h2 className='text-3xl font-bold -ms-2.5'>ZapShift</h2>
+              <h2 onClick={()=>navigate('/')}  className='text-3xl font-bold -ms-2.5 cursor-pointer'>ZapShift</h2>
           </div>
   )
 }

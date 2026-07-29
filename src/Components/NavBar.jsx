@@ -11,10 +11,12 @@ const NavBar = () => {
     const links = <>
         <NavLink to={'/'}>Home</NavLink>
         <NavLink>Services</NavLink>
+        <NavLink to={'/sendParcel'}>Send Parcel</NavLink>
         <NavLink to={'/coverage'}>Coverage</NavLink>
         <NavLink to={'/about'}>About Us</NavLink>
         <NavLink>Pricing</NavLink>
-        <NavLink>Be a Rider</NavLink>
+        {user && <NavLink to={'/dashboard/my-parcels'}>Dashboard</NavLink>}
+        <button onClick={()=>navigate('/rider')} className='bg-primary btn rounded-4xl max-sm:hidden'>Be a rider</button>
     </>
 
     function handleLogOut(){
@@ -40,14 +42,14 @@ const NavBar = () => {
           {links}
       </ul>
     </div>
-      <div className='flex items-end'>
-          <img src={webLogo} alt="" />
+      <div onClick={()=>navigate('/')} className='flex items-end cursor-pointer'>
+          <img src={webLogo} alt="logo" />
 
           <h2 className='text-3xl font-bold -ms-2.5'>ZapShift</h2>
       </div>
   </div>
   <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1 flex gap-9">
+    <ul className="menu menu-horizontal px-1 flex gap-9 items-center">
         {links}
     </ul>
   </div>
@@ -58,8 +60,8 @@ const NavBar = () => {
       Sign Out</a> : <a onClick={()=>navigate('/login')} className="btn text-black rounded-[10px]">
       Sign In</a>}
 
-    <a className="btn bg-primary text-black rounded-[10px]">
-      Be a rider</a>
+     {!user && <a onClick={()=>navigate('/register')} className="btn bg-primary text-black rounded-[10px]">
+      Sign Up</a>}
   </div>
 </div>
   )
