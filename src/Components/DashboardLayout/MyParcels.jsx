@@ -5,12 +5,10 @@ import UseAxiosSecure from '../UseAxiosSecure'
 import { FiEdit } from 'react-icons/fi'
 import { FaMagnifyingGlass, FaTrashCan } from 'react-icons/fa6'
 import Swal from 'sweetalert2'
-import { useNavigate } from 'react-router'
 
 const MyParcels = () => {
   const {user} = useAuth()
   const axiosSecure = UseAxiosSecure()
-  const navigate = useNavigate()
 
   const { data: parcels = [], refetch} = useQuery({
     queryKey: ['myParcels', user?.email],
@@ -49,6 +47,18 @@ const MyParcels = () => {
 });
   }
 
+  const handlePayment = async(parcel) => {
+    const paymentInfo = {
+      cost: parcel.cost,
+      parcelId: parcel._id,
+      senderEmail: parcel.senderEmail,
+      parcelName: parcel.parcelName
+    }
+    const res = await axiosSecure.post('/create-checkout-session', paymentInfo)
+    console.log(res.data.url)
+    window.location.assign(res.data.url)
+  }
+
   return (
     <div>
         <div className='mx-4'>All of My Parcels: {parcels.length}</div>
@@ -70,7 +80,11 @@ const MyParcels = () => {
         <th>{index+1}</th>
         <td>{parcel.parcelName}</td>
         <td>{parcel.cost}</td>
-        <td><button onClick={()=>navigate(`/dashboard/payment/${parcel._id}`)} className='btn bg-primary border-0'>Pay</button></td>
+        <td>
+          {
+            parcel.paymentStatus === 'paid' ? <span className='text-green-500 font-bold'>Paid</span> : <button onClick={()=>handlePayment(parcel)} className='btn bg-primary border-0'>Pay</button>
+          }
+        </td>
         <td>
             <button className='btn btn-square hover:bg-primary'>
                 <FiEdit></FiEdit>
