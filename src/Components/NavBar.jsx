@@ -2,6 +2,7 @@ import React from 'react'
 import webLogo from '../../assets/brands/logo.png'
 import { NavLink, useNavigate } from 'react-router'
 import useAuth from '../Hooks/useAuth'
+import Swal from 'sweetalert2'
 
 const NavBar = () => {
 
@@ -20,14 +21,26 @@ const NavBar = () => {
     </>
 
     function handleLogOut(){
-      logOut()
-      .then(()=>{
-        console.log("Signed Out")
-      }).catch(error=>{
-        console.log(error)
-      })
-      navigate('/login')
-    }
+        Swal.fire({
+        title: "Are you sure to Sign Out?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes"
+      }).then((result) => {
+          if (result.isConfirmed){
+              logOut()
+              .then(()=>{
+                console.log("Signed Out")})
+              .catch(error=>{
+                console.log(error)
+            })
+              navigate('/login')
+            }
+});
+
+}
 
   return (
 <div className="navbar bg-base-100 shadow-sm mt-8 rounded-2xl">

@@ -1,5 +1,5 @@
 import { useForm, useWatch } from 'react-hook-form'
-import { useLoaderData } from 'react-router'
+import { useLoaderData, useNavigate } from 'react-router'
 import Swal from 'sweetalert2'
 import UseAxiosSecure from './UseAxiosSecure'
 import useAuth from '../Hooks/useAuth'
@@ -18,6 +18,7 @@ const SendParcel = () => {
   const regions = [...new Set(regionsDuplicate)]
   const senderRegion = useWatch({control,name: 'senderRegion'})
   const receiverRegion = useWatch({control,name: 'receiverRegion'})
+  const navigate = useNavigate('/my-parcels')
 
   const districtByRegion = (region) => {
     const regionDistricts = serviceCenters.filter(x => x.region === region)
@@ -49,7 +50,7 @@ const SendParcel = () => {
 
       Swal.fire({
         title: "Are you sure?",
-        text: `You will be charged ${cost} taka`,
+        text: `You will be charged ${cost} USD`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -57,11 +58,27 @@ const SendParcel = () => {
         confirmButtonText: "Yes"
         }).then((result) => {
         if (result.isConfirmed){
-          console.log("Confirmed")
           data.cost = cost
           axiosSecure.post('/parcels',data)
           .then(res=>{
             console.log("After saving", res.data)
+            if(res.data.insertedId){
+              Swal.fire({
+                title: "Please pay",
+                showClass: { popup: `
+                  animate__animated
+                  animate__fadeInUp
+                  animate__faster
+                ` },
+                hideClass: { popup: `
+                  animate__animated
+                  animate__fadeOutDown
+                  animate__faster
+                ` }
+              });
+              navigate('/dashboard/my-parcels')
+            }
+            
           })
         }
           
