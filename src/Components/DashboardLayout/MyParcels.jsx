@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import React, { memo } from 'react'
 import useAuth from '../../Hooks/useAuth'
 import UseAxiosSecure from '../UseAxiosSecure'
 import { FiEdit } from 'react-icons/fi'
@@ -11,7 +11,7 @@ const MyParcels = () => {
   const axiosSecure = UseAxiosSecure()
 
   const { data: parcels = [], refetch} = useQuery({
-    queryKey: ['myParcels', user?.email],
+    queryKey: ['myParcels', user.email],
     queryFn: async() => {
       const res = await axiosSecure.get(`/parcels?email=${user.email}`)
       return res.data
@@ -106,4 +106,4 @@ const MyParcels = () => {
   )
 }
 
-export default MyParcels
+export default memo(MyParcels)

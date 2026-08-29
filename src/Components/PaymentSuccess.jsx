@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import { useSearchParams } from "react-router"
 import UseAxiosSecure from "./UseAxiosSecure"
 
@@ -33,4 +33,4 @@ const PaymentSuccess = () => {
   )
 }
 
-export default PaymentSuccess
+export default memo(PaymentSuccess)

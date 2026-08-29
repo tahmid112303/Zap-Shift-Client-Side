@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import useAuth from '../../Hooks/useAuth'
 import { useLocation, useNavigate } from 'react-router'
 
@@ -30,4 +30,4 @@ const SocialLogin = () => {
   )
 }
 
-export default SocialLogin
+export default memo(SocialLogin)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useAuth from '../../Hooks/useAuth'
 import { Eye, EyeOff } from 'lucide-react'
@@ -71,4 +71,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default memo(Login)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Link } from 'react-router'
 
 const PaymentCancel = () => {
@@ -12,4 +12,4 @@ const PaymentCancel = () => {
   )
 }
 
-export default PaymentCancel
+export default memo(PaymentCancel)
