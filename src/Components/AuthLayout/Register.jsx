@@ -5,6 +5,7 @@ import { Eye, EyeOff } from 'lucide-react'
 import { Link } from 'react-router'
 import SocialLogin from './SocialLogin'
 import axios from 'axios'
+import useAxiosSecure from '../UseAxiosSecure'
 
 
 const Register = () => {
@@ -12,6 +13,7 @@ const Register = () => {
   const {register,handleSubmit, reset, formState: {errors}} = useForm()
   const {registerUser,profileUpdate,verifyEmail} = useAuth()
   const [showPassword,setShowPassword] = useState(false) 
+  const axiosSecure = useAxiosSecure()
 
   const handleRegister = (data) => {
     console.log("After reg: ", data.photo[0])
@@ -35,6 +37,20 @@ const Register = () => {
       const imageAPI_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_host_key}`
       axios.post(imageAPI_URL,formData)
       .then(res=>{
+
+        //create user in the database
+        const userInfo = {
+          email: data.email,
+          displayName: data.name,
+          photoURL: res.data.data.url
+        }
+
+        axiosSecure.post('/users',userInfo)
+        .then(res=>{
+          if(res.data.insertedId){
+            console.log("User created in the database")
+          }
+        })
 
         const profileInfo = {
           displayName: data.name,

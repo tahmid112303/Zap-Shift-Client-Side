@@ -1,9 +1,12 @@
 import React from 'react'
 import { FaRegCreditCard } from 'react-icons/fa'
+import { FaMotorcycle, FaUser } from 'react-icons/fa6'
 import { NavLink, Outlet, useNavigate } from 'react-router'
+import UseRole from '../../Hooks/UseRole'
 
 const DashboardLayout = () => {
   const navigate = useNavigate()
+  const {role} = UseRole()
 
   return (
 <div className="drawer lg:drawer-open">
@@ -40,6 +43,23 @@ const DashboardLayout = () => {
             <FaRegCreditCard></FaRegCreditCard>
             <span className="is-drawer-close:hidden">Payment History</span>
           </button>
+
+          {role === 'admin' && <>
+              <button onClick={()=>navigate('/dashboard/user-management')} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management">            
+            {/* Card icon */}
+
+            <FaUser></FaUser>
+            <span className="is-drawer-close:hidden">Users Management</span>
+          </button>
+
+          <button onClick={()=>navigate('/dashboard/approve-riders')} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">            
+            {/* Card icon */}
+
+            <FaMotorcycle></FaMotorcycle>
+            <span className="is-drawer-close:hidden">Approve Riders</span>
+          </button>
+          </>
+          }
         </li>
 
 <li>
