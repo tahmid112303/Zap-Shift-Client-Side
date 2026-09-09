@@ -34,7 +34,7 @@ const UsersManagement = () => {
       const handleRemoveAdmin = user => {
         const roleInfo = { role: 'user' }
         //TODO: must ask for confirmation before proceed
-        axiosSecure.patch(`/users/${user._id}`, roleInfo)
+        axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
             .then(res => {
                 if (res.data.modifiedCount) {
                     refetch();
@@ -51,7 +51,7 @@ const UsersManagement = () => {
 
   return (
     <div>
-        <h2 className="text-4xl">Manage Users: {users.length}</h2>
+        <h2 className="text-5xl text-center my-4">Manage Users: {users.length}</h2>
 
         <div className="overflow-x-auto">
   <table className="table table-zebra">
@@ -69,7 +69,7 @@ const UsersManagement = () => {
       {/* row 1 */}
       {users.map((user,index) => <tr key={index}>
         <th>{index+1}</th>
-        <td><img src={user.photoURL} alt="User Image" className='w-6 h-6 rounded-full'/></td>
+        <td><img src={user.photoURL} alt="User Image" className='w-10 h-10 rounded-full'/></td>
         <td>{user.email}</td>
         <td>{user.role}</td>
         <td>

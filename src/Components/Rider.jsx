@@ -1,12 +1,13 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useAuth from '../Hooks/useAuth';
 import useAxiosSecure from './UseAxiosSecure';
 
 const Rider = () => {
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
@@ -38,6 +39,16 @@ const Rider = () => {
                         position: "top-end",
                         icon: "success",
                         title: "Your application has been submitted. We will reach to you in 145 days",
+                        showConfirmButton: false,
+                        timer: 4000
+                    });
+                    navigate('/')
+                }
+                else {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "You have already applied",
                         showConfirmButton: false,
                         timer: 2000
                     });

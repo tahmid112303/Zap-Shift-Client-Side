@@ -40,18 +40,18 @@ const ApproveRiders = () => {
     }
 
     const handleDeleteRider = (id) => {
-                Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-              }).then((result) => {
-            if (result.isConfirmed){
-              axiosSecure.delete(`/riders/${id}`)
-              .then(res=>{
+        Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed){
+            axiosSecure.delete(`/riders/${id}`)
+            .then(res=>{
                 console.log(res.data)
                 if(res.data.deletedCount){
                     refetch()
@@ -69,7 +69,7 @@ const ApproveRiders = () => {
 
   return (
     <div>
-        <h2 className="text-5xl">Rider Approval Pending: {riders.length}</h2>
+        <h2 className="text-5xl text-center my-4">Rider Approval Pending: {riders.length}</h2>
 
         <div className="overflow-x-auto">
   <table className="table table-zebra">
@@ -90,10 +90,10 @@ const ApproveRiders = () => {
         <th>{index+1}</th>
         <td>{rider.name}</td>
         <td>{rider.email}</td>
-        <td className={`${rider.status==="approved" ? 'text-green-800' : 'text-red-700'}`}>{rider.status}</td>
+        <td className={`${rider.status==="approved" ? 'text-green-800 font-bold' : rider.status==='pending' ? 'text-yellow-600 font-bold' : 'text-red-700 font-bold'}`}>{rider.status}</td>
         <td>{rider.district}</td>
         <td>
-            <button onClick={()=>handleApproval(rider)} className="btn ml-2">
+            <button className="btn ml-2">
                 <FaEye></FaEye>
             </button>
 

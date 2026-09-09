@@ -5,6 +5,7 @@ import UseAxiosSecure from '../UseAxiosSecure'
 import { FiEdit } from 'react-icons/fi'
 import { FaMagnifyingGlass, FaTrashCan } from 'react-icons/fa6'
 import Swal from 'sweetalert2'
+import { Link } from 'react-router'
 
 const MyParcels = () => {
   const {user} = useAuth()
@@ -61,7 +62,7 @@ const MyParcels = () => {
 
   return (
     <div>
-        <div className='mx-4'>All of My Parcels: {parcels.length}</div>
+        <div className='text-center my-6 text-4xl font-bold'>All of My Parcels: {parcels.length}</div>
 
         <div className="overflow-x-auto">
   <table className="table table-zebra">
@@ -102,6 +103,10 @@ const MyParcels = () => {
     </tbody>
   </table>
 </div>
+
+          <div className='flex justify-center mt-20 underline text-secondary text-2xl font-bold'>
+              <Link to={'/sendParcel'}>Send Parcel</Link>
+          </div>
     </div>
   )
 }
