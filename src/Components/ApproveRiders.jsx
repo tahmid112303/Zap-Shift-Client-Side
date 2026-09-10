@@ -79,7 +79,8 @@ const ApproveRiders = () => {
         <th>SL.</th>
         <th>Name</th>
         <th>Email</th>
-        <th>Status</th>
+        <th>Application Status</th>
+        <th>Worker Status</th>
         <th>Districts</th>
         <th>Actions</th>
       </tr>
@@ -91,6 +92,7 @@ const ApproveRiders = () => {
         <td>{rider.name}</td>
         <td>{rider.email}</td>
         <td className={`${rider.status==="approved" ? 'text-green-800 font-bold' : rider.status==='pending' ? 'text-yellow-600 font-bold' : 'text-red-700 font-bold'}`}>{rider.status}</td>
+        <td>{rider.workStatus}</td>
         <td>{rider.district}</td>
         <td>
             <button className="btn ml-2">

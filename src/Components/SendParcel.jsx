@@ -3,6 +3,7 @@ import { useLoaderData, useNavigate } from 'react-router'
 import Swal from 'sweetalert2'
 import UseAxiosSecure from './UseAxiosSecure'
 import useAuth from '../Hooks/useAuth'
+import { memo } from 'react'
 
 const SendParcel = () => {
   const {register,
@@ -149,7 +150,7 @@ const SendParcel = () => {
 
                     <fieldset className="fieldset">
                        <legend className="fieldset-legend">Select Region</legend>
-                       <select {...register('senderRegion')} defaultValue="Pick a Region" className="select">
+                       <select {...register('senderRegion',{required: true})} defaultValue="Pick a Region" className="select">
                          <option>Pick Region</option>
                             {regions.map((r,i) => <option key={i} value={r}>{r}</option>)}
                        </select>           
@@ -157,7 +158,7 @@ const SendParcel = () => {
 
                     <fieldset className="fieldset">
                        <legend className="fieldset-legend">Select District</legend>
-                       <select {...register('senderDistrict')} defaultValue="Pick a District" className="select">
+                       <select {...register('senderDistrict',{required: true})} defaultValue="Pick a District" className="select">
                          <option disabled={true}>Select District</option>
                              {districtByRegion(senderRegion).map((d,i) => <option key={i} value={d}>{d}</option>)}
                        </select>           
@@ -189,7 +190,7 @@ const SendParcel = () => {
 
                     <fieldset className="fieldset">
                        <legend className="fieldset-legend">Select Region</legend>
-                       <select {...register('receiverRegion')} defaultValue="Pick a Region" className="select">
+                       <select {...register('receiverRegion', {required: true})} defaultValue="Pick a Region" className="select">
                          <option>Pick a Region</option>
                             {regions.map((r,i) => <option key={i} value={r}>{r}</option>)}
                        </select>                    
@@ -197,7 +198,7 @@ const SendParcel = () => {
 
                     <fieldset className="fieldset">
                        <legend className="fieldset-legend">Select District</legend>
-                       <select {...register('receiverDistrict')} defaultValue="Pick a District" className="select">
+                       <select {...register('receiverDistrict', {required: true})} defaultValue="Pick a District" className="select">
                          <option disabled={true}>Select District</option>
                              {districtByRegion(receiverRegion).map((d,i) => <option key={i} value={d}>{d}</option>)}
                        </select>           
@@ -212,4 +213,4 @@ const SendParcel = () => {
   )
 }
 
-export default SendParcel
+export default memo(SendParcel)

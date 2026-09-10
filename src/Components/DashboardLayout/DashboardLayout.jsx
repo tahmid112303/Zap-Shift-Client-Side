@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { FaRegCreditCard } from 'react-icons/fa'
 import { FaMotorcycle, FaUser } from 'react-icons/fa6'
 import { NavLink, Outlet, useNavigate } from 'react-router'
 import UseRole from '../../Hooks/UseRole'
 import { IoBagSharp } from 'react-icons/io5'
+import { RiEBikeFill } from 'react-icons/ri'
 
 const DashboardLayout = () => {
   const navigate = useNavigate()
@@ -61,6 +62,13 @@ const DashboardLayout = () => {
             <span className="is-drawer-close:hidden">Users Management</span>
           </button>
 
+              <button onClick={()=>navigate('/dashboard/assign-riders')} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assign Riders">            
+            {/* Card icon */}
+
+            <RiEBikeFill></RiEBikeFill>
+            <span className="is-drawer-close:hidden">Users Management</span>
+          </button>
+
           <button onClick={()=>navigate('/dashboard/approve-riders')} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approve Riders">            
             {/* Card icon */}
 
@@ -89,4 +97,4 @@ const DashboardLayout = () => {
   )
 }
 
-export default DashboardLayout
+export default memo(DashboardLayout)
