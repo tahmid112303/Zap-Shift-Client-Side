@@ -33,10 +33,26 @@ const ApproveRiders = () => {
 
     const handleApproval = (rider) => {
         updateRiderStatus(rider,"approved")
+        refetch()
+        Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: 'Rider has been approved',
+                    showConfirmButton: false,
+                    timer: 2000
+                  })
     }
 
     const handleRejection = (rider) => {
         updateRiderStatus(rider,'rejected')
+        refetch()
+        Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: 'Rider has been rejected',
+                    showConfirmButton: false,
+                    timer: 2000
+                  })
     }
 
     const handleDeleteRider = (id) => {

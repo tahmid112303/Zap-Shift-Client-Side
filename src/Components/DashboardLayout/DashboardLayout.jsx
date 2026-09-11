@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { FaRegCreditCard } from 'react-icons/fa'
+import { FaRegCreditCard, FaTasks } from 'react-icons/fa'
 import { FaMotorcycle, FaUser } from 'react-icons/fa6'
 import { NavLink, Outlet, useNavigate } from 'react-router'
 import UseRole from '../../Hooks/UseRole'
@@ -54,6 +54,17 @@ const DashboardLayout = () => {
             <span className="is-drawer-close:hidden">Payment History</span>
           </button>
 
+          {/* Rider only links */}
+          {role === 'rider' && <>
+              <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assigned Deliveries">            
+            {/* Card icon */}
+
+            <FaTasks></FaTasks>
+            <span className="is-drawer-close:hidden">Assigned Deliveries</span>
+          </button>
+          </>}
+
+          {/* Admin only links */}
           {role === 'admin' && <>
               <button onClick={()=>navigate('/dashboard/user-management')} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Users Management">            
             {/* Card icon */}

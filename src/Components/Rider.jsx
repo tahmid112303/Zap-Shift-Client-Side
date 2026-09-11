@@ -38,7 +38,7 @@ const Rider = () => {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "Your application has been submitted. We will reach to you in 145 days",
+                        title: "Your application has been submitted. We will reach to you shortly",
                         showConfirmButton: false,
                         timer: 4000
                     });
@@ -70,7 +70,7 @@ const Rider = () => {
                         <label className="label">Rider Name</label>
                         <input type="text" {...register('name', {required: true})}
                             defaultValue={user?.displayName}
-                            className="input w-full" placeholder="Sender Name" />
+                            className="input w-full" placeholder="Sender Name" required/>
 
                         {/* rider email */}
                         <label className="label">Email</label>
@@ -78,32 +78,40 @@ const Rider = () => {
                             defaultValue={user?.email}
                             className="input w-full" placeholder="Sender Email" required/>
 
-                        {/* rider region */}
-                        <fieldset className="fieldset">
-                            <legend className="fieldset-legend">Regions</legend>
-                            <select {...register('region', {required: true})} defaultValue="Pick a region" className="select" required>
-                                <option disabled={true}>Pick a region</option>
-                                {
-                                    regions.map((r, i) => <option key={i} value={r}>{r}</option>)
-                                }
-                            </select>
-                        </fieldset>
+{/* rider regions */}
+<fieldset className="fieldset">
+    <legend className="fieldset-legend">Regions</legend>
+    <select 
+        {...register('region', { required: 'Please select a region' })} 
+        defaultValue="" 
+        className="select"
+    >
+        <option disabled value="">Pick a region</option>
+        {regions.map((r) => (
+            <option key={r} value={r}>{r}</option>
+        ))}
+    </select>
+</fieldset>
 
-                        {/* rider districts */}
-                        <fieldset className="fieldset">
-                            <legend className="fieldset-legend">Districts</legend>
-                            <select {...register('district', {required: true})} defaultValue="Pick a district" className="select" required>
-                                <option disabled={true}>Pick a district</option>
-                                {
-                                    districtsByRegion(riderRegion).map((r, i) => <option key={i} value={r}>{r}</option>)
-                                }
-                            </select>
-                        </fieldset>
+{/* rider districts */}
+<fieldset className="fieldset">
+    <legend className="fieldset-legend">Districts</legend>
+    <select 
+        {...register('district', { required: 'Please select a district' })} 
+        defaultValue="" 
+        className="select"
+    >
+        <option disabled value="">Pick a district</option>
+        {districtsByRegion(riderRegion).map((r) => (
+            <option key={r} value={r}>{r}</option>
+        ))}
+    </select>
+</fieldset>
 
 
                         {/* rider address */}
                         <label className="label mt-4">Your Address</label>
-                        <input type="text" {...register('address')} className="input w-full" placeholder="Sender Address" required/>
+                        <input type="text" {...register('address', {required: true})} className="input w-full" placeholder="Sender Address" required/>
 
 
                     </fieldset>
@@ -112,16 +120,16 @@ const Rider = () => {
                         <h4 className="text-2xl font-semibold">More Details</h4>
                         {/* receiver name */}
                         <label className="label">Driving License</label>
-                        <input type="text" {...register('license')} className="input w-full" placeholder="Driving License" required/>
+                        <input type="text" {...register('license', {required: true})} className="input w-full" placeholder="Driving License" required/>
 
                         {/* receiver email */}
                         <label className="label">NID</label>
-                        <input type="text" {...register('nid')} className="input w-full" placeholder="NID" required/>
+                        <input type="text" {...register('nid',{required: true})} className="input w-full" placeholder="NID" required/>
 
 
                         {/* Bike */}
                         <label className="label mt-4">BIKE</label>
-                        <input type="text" {...register('bike')} className="input w-full" placeholder="Bike" required/>
+                        <input type="text" {...register('bike', {required: true})} className="input w-full" placeholder="Bike" required/>
                         {/*  address */}
 
 

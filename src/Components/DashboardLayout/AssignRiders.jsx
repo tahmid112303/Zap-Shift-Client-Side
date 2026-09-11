@@ -1,10 +1,19 @@
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import useAxiosSecure from '../UseAxiosSecure'
+import Swal from 'sweetalert2'
 
 const AssignRiders = () => {
+    const [selectedParcel,setSelectedParcel] = useState(null)
     const axiosSecure = useAxiosSecure()
-    const { data: parcels = [] } = useQuery({
+    const riderModalRef = useRef()
+
+    const openAssignRiderModal = (parcel) => {
+        setSelectedParcel(parcel)
+        riderModalRef.current.showModal()
+    }
+
+    const { data: parcels = [], refetch: parcelsRefetch } = useQuery({
         queryKey: ['parcels', 'pending-pickup'],
         queryFn: async () => {
             const res = await axiosSecure.get('/parcels?deliveryStatus=pending-pickup')
@@ -12,13 +21,47 @@ const AssignRiders = () => {
         }
     })
 
+     const { data: riders = [] } = useQuery({
+        queryKey: ['riders', selectedParcel?.senderDistrict, 'available'],
+        enabled: Boolean(selectedParcel?.senderDistrict),
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/riders?status=approved&district=${selectedParcel?.senderDistrict}&workStatus=available`);
+            console.log(res.data)
+            return res.data;
+        }
+    })
+
+        const handleAssignRider = (rider) => {
+      const riderAssignInfo = {
+        riderId: rider._id,
+        riderEmail: rider.email,
+        riderName: rider.name,
+        parcelId: selectedParcel._id
+      }
+      axiosSecure.patch(`/parcels/${selectedParcel._id}`,riderAssignInfo)
+      .then(res=>{
+        if(res.data.modifiedCount){
+           riderModalRef.current.close()
+           parcelsRefetch()
+           Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `Rider has been assigned`,
+              showConfirmButton: false,
+              timer: 4000
+           })
+        }
+      })
+    }
+
+
   return (
     <div>
         <h1 className="text-5xl text-center my-6">Assign Riders: {parcels.length}</h1>
 
         <div className="overflow-x-auto">
-  <table className="table table-zebra">
-    {/* head */}
+            <table className="table table-zebra">
+                {/* head */}
         <thead>
             <tr>
                 <th>#</th>
@@ -39,6 +82,7 @@ const AssignRiders = () => {
                 <td>{parcel.senderDistrict}</td>
                 <td>
                     <button
+                        onClick={()=>openAssignRiderModal(parcel)}
                         className='btn btn-primary text-black'>Find Riders
                     </button>
                 </td>
@@ -46,7 +90,46 @@ const AssignRiders = () => {
 
         </tbody>
   </table>
+        </div>
+
+<dialog ref={riderModalRef} className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg text-center">Riders: {riders.length}</h3>
+    <p className="py-4">Press ESC key or click the button below to close</p>
+
+    <div className="overflow-x-auto">
+  <table className="table table-zebra">
+    {/* head */}
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Favorite Color</th>
+      </tr>
+    </thead>
+    <tbody>
+        {riders.map((rider,i)=><tr key={i}>
+        <th>{i+1}</th>
+        <td>{rider.name}</td>
+        <td>{rider.email}</td>
+        <td>
+            <button onClick={()=>handleAssignRider(rider)} className="btn btn-primary text-black">Assign</button>
+        </td>
+      </tr>)}
+    </tbody>
+  </table>
 </div>
+
+    <div className="modal-action">
+      <form method="dialog">
+        {/* if there is a button in form, it will close the modal */}
+        <button className="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
     </div>
   )
 }
