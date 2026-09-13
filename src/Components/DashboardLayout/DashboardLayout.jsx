@@ -5,6 +5,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router'
 import UseRole from '../../Hooks/UseRole'
 import { IoBagSharp } from 'react-icons/io5'
 import { RiEBikeFill } from 'react-icons/ri'
+import { SiGoogletasks } from 'react-icons/si'
 
 const DashboardLayout = () => {
   const navigate = useNavigate()
@@ -56,11 +57,18 @@ const DashboardLayout = () => {
 
           {/* Rider only links */}
           {role === 'rider' && <>
-              <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assigned Deliveries">            
+            <button onClick={()=>navigate('/dashboard/assigned-deliveries')} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assigned Deliveries">            
             {/* Card icon */}
 
             <FaTasks></FaTasks>
             <span className="is-drawer-close:hidden">Assigned Deliveries</span>
+          </button>
+
+            <button onClick={()=>navigate('/dashboard/completed-deliveries')} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Completed Deliveries">            
+            {/* Card icon */}
+
+            <SiGoogletasks></SiGoogletasks>
+            <span className="is-drawer-close:hidden">Completed Deliveries</span>
           </button>
           </>}
 

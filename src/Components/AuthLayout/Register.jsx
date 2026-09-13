@@ -2,10 +2,11 @@ import React, { memo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useAuth from '../../Hooks/useAuth'
 import { Eye, EyeOff } from 'lucide-react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import SocialLogin from './SocialLogin'
 import axios from 'axios'
 import useAxiosSecure from '../UseAxiosSecure'
+import Swal from 'sweetalert2'
 
 
 const Register = () => {
@@ -14,6 +15,7 @@ const Register = () => {
   const {registerUser,profileUpdate,verifyEmail} = useAuth()
   const [showPassword,setShowPassword] = useState(false) 
   const axiosSecure = useAxiosSecure()
+  const navigate = useNavigate()
 
   const handleRegister = (data) => {
     console.log("After reg: ", data.photo[0])
@@ -27,8 +29,7 @@ const Register = () => {
       verifyEmail(result.user)
       .then(()=>{
         alert("Email verification link sent to your email")
-      })
-      .catch(error => {
+      }).catch(error => {
         console.log(error)
       })
 
@@ -49,6 +50,14 @@ const Register = () => {
         .then(res=>{
           if(res.data.insertedId){
             console.log("User created in the database")
+            navigate('/login')
+            Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: 'Account Successfully Created',
+                  showConfirmButton: false,
+                  timer: 3000
+           })
           }
         })
 
