@@ -13,10 +13,13 @@ const NavBar = () => {
         <NavLink to={'/'}>Home</NavLink>
         <NavLink>Services</NavLink>
         <NavLink to={'/sendParcel'}>Send Parcel</NavLink>
-        <NavLink to={'/coverage'}>Coverage</NavLink>
-        <NavLink to={'/about'}>About Us</NavLink>
+        <NavLink to={'/coverage'}>Coverage Areas</NavLink>
         <NavLink>Pricing</NavLink>
-        {user && <NavLink to={'/dashboard/my-parcels'}>Dashboard</NavLink>}
+        <NavLink to={'/about'}>About Us</NavLink>
+        {user && 
+        <NavLink to={'/dashboard/my-parcels'}>
+          Dashboard
+        </NavLink>}
         <button onClick={()=>navigate('/rider')} className='bg-primary btn rounded-4xl max-sm:hidden'>Be a rider</button>
     </>
 

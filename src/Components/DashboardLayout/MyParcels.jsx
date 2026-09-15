@@ -73,6 +73,7 @@ const MyParcels = () => {
         <th>Name</th>
         <th>Cost</th>
         <th>Payment</th>
+        <th>Tracking Id</th>
         <th>Delivery Status</th>
         <th>Actions</th>
       </tr>
@@ -86,6 +87,11 @@ const MyParcels = () => {
           {
             parcel.paymentStatus === 'paid' ? <span className='text-green-500 font-bold'>Paid</span> : <button onClick={()=>handlePayment(parcel)} className='btn bg-primary border-0'>Pay</button>
           }
+        </td>
+        <td>
+          <Link className='underline' to={`/parcel-tracker/${parcel.trackingId}`}>
+              {parcel.trackingId}
+          </Link>
         </td>
         <td>{parcel.deliveryStatus}</td>
         <td>

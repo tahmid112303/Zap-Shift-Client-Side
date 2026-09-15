@@ -15,7 +15,6 @@ const Coverage = () => {
 
         if(district){
             const coOrdinate = [district.latitude,district.longitude]
-            console.log(district,coOrdinate)
             mapRef.current.flyTo(coOrdinate, 12)
         }else{
             alert("Could not find anything")

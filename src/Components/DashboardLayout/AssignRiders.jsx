@@ -13,7 +13,7 @@ const AssignRiders = () => {
         riderModalRef.current.showModal()
     }
 
-    const { data: parcels = [], refetch: parcelsRefetch } = useQuery({
+    const { data: parcels = [], refetch } = useQuery({
         queryKey: ['parcels', 'pending-pickup'],
         queryFn: async () => {
             const res = await axiosSecure.get('/parcels?deliveryStatus=pending-pickup')
@@ -31,18 +31,18 @@ const AssignRiders = () => {
         }
     })
 
-        const handleAssignRider = (rider) => {
+      const handleAssignRider = (rider) => {
       const riderAssignInfo = {
         riderId: rider._id,
         riderEmail: rider.email,
         riderName: rider.name,
-        parcelId: selectedParcel._id
+        parcelId: selectedParcel._id,
+        trackingId: selectedParcel.trackingId
       }
       axiosSecure.patch(`/parcels/${selectedParcel._id}`,riderAssignInfo)
       .then(res=>{
         if(res.data.modifiedCount){
            riderModalRef.current.close()
-           parcelsRefetch()
            Swal.fire({
               position: "center",
               icon: "success",
@@ -50,6 +50,7 @@ const AssignRiders = () => {
               showConfirmButton: false,
               timer: 4000
            })
+           refetch()
         }
       })
     }

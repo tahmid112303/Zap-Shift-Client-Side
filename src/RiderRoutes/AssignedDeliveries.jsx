@@ -1,4 +1,3 @@
-import React from 'react'
 import useAuth from '../Hooks/useAuth'
 import { useQuery } from '@tanstack/react-query'
 import useAxiosSecure from '../Components/UseAxiosSecure'
@@ -18,7 +17,8 @@ const AssignedDeliveries = () => {
   const handleDeliveryStatusUpdate = (parcel,status) => {
       const statusInfo= { 
         deliveryStatus: status,
-        riderId: parcel.riderId
+        riderId: parcel.riderId,
+        trackingId: parcel.trackingId
       };
 
       let message = `Parcel status is updated with ${status}`
@@ -68,9 +68,15 @@ const AssignedDeliveries = () => {
             }
         </td>
         <td>
-          <button onClick={()=>handleDeliveryStatusUpdate(parcel,"parcel_picked_up")} className='btn text-black btn-primary mr-2'>
+
+          {
+            parcel.deliveryStatus === "parcel_picked_up" ? <button className='btn text-black btn-primary mr-2'>
+              Picked Up
+          </button> : <button onClick={()=>handleDeliveryStatusUpdate(parcel,"parcel_picked_up")} className='btn text-black btn-primary mr-2'>
               Mark as Picked Up
           </button>
+          }
+
           
           <button onClick={()=>handleDeliveryStatusUpdate(parcel,"parcel_delivered")} className='btn text-black btn-primary'>
               Mark as Delivered
