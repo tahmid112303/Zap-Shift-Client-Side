@@ -17,7 +17,6 @@ import PaymentSuccess from "./PaymentSuccess";
 import PaymentCancel from "./PaymentCancel";
 import PaymentHistory from "./DashboardLayout/PaymentHistory";
 import ApproveRiders from "./ApproveRiders";
-import UsersManagement from "./UsersManagement";
 import AdminRoute from "../Admin/AdminRoute";
 import AssignRiders from "./DashboardLayout/AssignRiders";
 import AssignedDeliveries from "../RiderRoutes/AssignedDeliveries";
@@ -25,6 +24,8 @@ import RiderRoute from "../RiderRoutes/RiderRoute";
 import CompletedDeliveries from "./DashboardLayout/CompletedDeliveries";
 import ParcelTracker from "../ParcelTracker/ParcelTracker";
 import DashboardHome from "./DashboardHome";
+import UsersManagement from "./UsersManagement";
+import Pricing from "./Pricing";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,9 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><SendParcel></SendParcel></PrivateRoute>,
         loader: () => fetch('/ServiceCenters.json').then(res => res.json())
       }, 
+      { path: 'pricing', 
+        element: <Pricing></Pricing>,
+      }, 
       { path: 'about', 
         Component: About
       },
@@ -56,6 +60,8 @@ export const router = createBrowserRouter([
       }, 
     ],
   },
+
+  //AuthLayout links
   {
     path: '/',
     Component: AuthLayout,
@@ -70,6 +76,8 @@ export const router = createBrowserRouter([
 
   ] 
   },
+
+  //Dashboard links
   {
     path: 'dashboard',
     element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,

@@ -12,7 +12,7 @@ const Rider = () => {
         register,
         handleSubmit,
         control,
-        // formState: { errors } 
+        formState: { errors }
     } = useForm();
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
@@ -70,7 +70,7 @@ const Rider = () => {
                         <label className="label">Rider Name</label>
                         <input type="text" {...register('name', {required: true})}
                             defaultValue={user?.displayName}
-                            className="input w-full" placeholder="Sender Name" required/>
+                            className="input w-full" placeholder="Sender Name" />
 
                         {/* rider email */}
                         <label className="label">Email</label>
@@ -124,7 +124,11 @@ const Rider = () => {
 
                         {/* receiver email */}
                         <label className="label">NID</label>
-                        <input type="text" {...register('nid',{required: true})} className="input w-full" placeholder="NID" required/>
+                        <input type="text" {...register('nid',{required: true, minLength: 10})} className="input w-full" placeholder="NID" required/>
+
+                        {errors.nid?.type==="minLength" && <p className='text-red-700'>Please provide a valid NID number</p>}
+
+                        
 
 
                         {/* Bike */}

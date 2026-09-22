@@ -14,7 +14,7 @@ const NavBar = () => {
         <NavLink>Services</NavLink>
         <NavLink to={'/sendParcel'}>Send Parcel</NavLink>
         <NavLink to={'/coverage'}>Coverage Areas</NavLink>
-        <NavLink>Pricing</NavLink>
+        <NavLink to={'/pricing'}>Pricing</NavLink>
         <NavLink to={'/about'}>About Us</NavLink>
         {user && 
         <NavLink to={'/dashboard/my-parcels'}>

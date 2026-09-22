@@ -25,7 +25,7 @@ const AdminDashboardHome = () => {
       
       <div className="stats shadow">
           {
-            deliveryStats.map(stat => <div key={stat._id} className="stat">
+            deliveryStats.map((stat,i) => <div key={i} className="stat">
     <div className="stat-figure text-secondary">
       <svg
         xmlns="http://www.w3.org/2000/svg"

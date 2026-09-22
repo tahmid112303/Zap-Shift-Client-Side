@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import useAxiosSecure from './UseAxiosSecure'
-import { FaEye, FaTrashCan, FaUserCheck } from 'react-icons/fa6'
+import { FaTrashCan, FaUserCheck } from 'react-icons/fa6'
 import { IoPersonRemoveSharp } from 'react-icons/io5'
 import Swal from 'sweetalert2'
 
@@ -55,7 +55,7 @@ const ApproveRiders = () => {
                   })
     }
 
-    const handleDeleteRider = (id) => {
+    const handleRemoveRider = (id) => {
         Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -111,19 +111,16 @@ const ApproveRiders = () => {
         <td>{rider.workStatus}</td>
         <td>{rider.district}</td>
         <td>
-            <button className="btn ml-2">
-                <FaEye></FaEye>
-            </button>
 
-            <button onClick={()=>handleApproval(rider)} className="btn ml-2">
+            <button title='Approve' onClick={()=>handleApproval(rider)} className="btn btn-info text-white ml-2">
                 <FaUserCheck></FaUserCheck>
             </button>
 
-            <button onClick={()=>handleRejection(rider)} className="btn ml-2">
+            <button title='Reject' onClick={()=>handleRejection(rider)} className="btn btn-info text-white ml-2">
                 <IoPersonRemoveSharp></IoPersonRemoveSharp>
             </button>
 
-            <button onClick={()=>handleDeleteRider(rider._id)} className="btn ml-2">
+            <button title='Remove Request' onClick={()=>handleRemoveRider(rider._id)} className="btn btn-info text-white ml-2">
                 <FaTrashCan></FaTrashCan>
             </button>
         </td>
